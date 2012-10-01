@@ -29,11 +29,11 @@ define("01-promiseImpl.test", ["buster", "fs", "./01-promiseImpl"], function(bus
 //		"should read file (de, fallback)": function(done)
 //		{
 //			throw new Error("Not implemented");
-//		},
-//
-//		"should return error (en, na)": function(done)
-//		{
-//			throw new Error("Not implemented");
+		},
+
+		"should return error (en, na)": function(done)
+		{
+			throw new Error("Not implemented");
 //		},
 //
 //		"should return error (de, na)": function(done)
