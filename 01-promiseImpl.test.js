@@ -33,7 +33,12 @@ define("01-promiseImpl.test", ["buster", "fs", "./01-promiseImpl"], function(bus
 
 		"should return error (en, na)": function(done)
 		{
-			throw new Error("Not implemented");
+			html.getHtml("en", "na")
+				.then(this.mock().never())
+				.fail(function(e){
+					expect(e).not.toBeNull();
+				})
+				.fin(done).end();
 //		},
 //
 //		"should return error (de, na)": function(done)
