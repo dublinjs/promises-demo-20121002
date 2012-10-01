@@ -13,6 +13,15 @@ define(["./02-promiseAndCallback"], function(htmlLib){
 				}).end();
 		},
 
+		withPromisePromise: function()
+		{
+			return htmlLib
+				.getHtml("en", "one")
+				.then(function(html){
+					return html.replace("a", "b");
+				});
+		},
+
 		withCallback: function(callback)
 		{
 			htmlLib.getHtml("en", "one", function(e, html){

@@ -33,6 +33,26 @@ define("03-usingPromised.test", ["buster", "q", "./02-promiseAndCallback", "./03
 				expect(html).toEqual("b");
 				done();
 			});
+		},
+
+		"should replace a with b in text (promise+promise)": function(done)
+		{
+			var deferred = Q.defer();
+			setTimeout(function(){
+				deferred.resolve("a");
+			}, 50);
+
+			var stub = this.stub(htmlLib, "getHtml")
+				.withArgs("en", "one")
+				.returns(deferred.promise);
+
+			libClient
+				.withPromisePromise()
+				.then(function(html){
+					expect(stub).toHaveBeenCalledOnce();
+					expect(html).toEqual("b");
+				})
+				.fin(done).end();
 		}
 
 	});
