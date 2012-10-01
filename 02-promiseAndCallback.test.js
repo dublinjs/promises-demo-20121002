@@ -62,25 +62,53 @@ define("02-promiseAndCallback.test", ["buster", "fs", "./02-promiseAndCallback"]
 		},
 
 		"withCallback": {
-//			"should read file (de, exists)": function(done)
-//			{
-//				throw new Error("Not implemented");
-//			},
-//
-//			"should read file (de, fallback)": function(done)
-//			{
-//				throw new Error("Not implemented");
-//			},
-//
-//			"should return error (en, na)": function(done)
-//			{
-//				throw new Error("Not implemented");
-//			},
-//
-//			"should return error (de, na)": function(done)
-//			{
-//				throw new Error("Not implemented");
-//			}
+			"should read file (de, exists)": function(done)
+			{
+				html.getHtml("de", "one", function(e, data){
+
+					expect(this.fsStub).toHaveBeenCalledOnce();
+					expect(e).toBeNull();
+					expect(data).toEqual("one german");
+					done();
+
+				}.bind(this));
+			},
+
+			"should read file (de, fallback)": function(done)
+			{
+				html.getHtml("de", "two", function(e, data){
+
+					expect(this.fsStub).toHaveBeenCalledTwice();
+					expect(e).toBeNull();
+					expect(data).toEqual("two english");
+					done();
+
+				}.bind(this));
+			},
+
+			"should return error (en, na)": function(done)
+			{
+				html.getHtml("en", "na", function(e, data){
+
+					expect(this.fsStub).toHaveBeenCalledOnce();
+					expect(e).not.toBeNull();
+					expect(data).toBeNull();
+					done();
+
+				}.bind(this));
+			},
+
+			"should return error (de, na)": function(done)
+			{
+				html.getHtml("de", "na", function(e, data){
+
+					expect(this.fsStub).toHaveBeenCalledTwice();
+					expect(e).not.toBeNull();
+					expect(data).toBeNull();
+					done();
+
+				}.bind(this));
+			}
 		}
 
 	});

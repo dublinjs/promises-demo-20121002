@@ -9,7 +9,7 @@ define(["fs", "path", "q"], function(fs, path, Q){
 		return path.join("testdata", pageId+"."+lang+".html");
 	};
 
-	var getHtml = function (lang, pageId)
+	var getHtml = function (lang, pageId, callback)
 	{
 		var promise = Q.ninvoke(fs, "readFile", getFn(lang, pageId), UTF);
 
@@ -17,7 +17,17 @@ define(["fs", "path", "q"], function(fs, path, Q){
 			? Q.reject
 			: function() { return getHtml(defaultLang, pageId); });
 
-		return promise.then(Q.resolve, onError);
+		promise = promise.then(Q.resolve, onError);
+
+		if (callback) {
+			promise.then(function(data){
+				callback(null, data);
+			}).fail(function(error){
+				callback(error, null);
+			}).end();
+		} else {
+			return promise;
+		}
 	};
 
 	return {
