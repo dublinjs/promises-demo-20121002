@@ -43,13 +43,20 @@ define("01-promiseImpl.test", ["buster", "fs", "./01-promiseImpl"], function(bus
 				.then(this.mock().never())
 				.fail(function(e){
 					expect(e).not.toBeNull();
-				})
+					expect(this.fsStub).toHaveBeenCalledOnce();
+				}.bind(this))
 				.fin(done).end();
-//		},
-//
-//		"should return error (de, na)": function(done)
-//		{
-//			throw new Error("Not implemented");
+		},
+
+		"should return error (de, na)": function(done)
+		{
+			html.getHtml("de", "na")
+				.then(this.mock().never())
+				.fail(function(e){
+					expect(e).not.toBeNull();
+					expect(this.fsStub).toHaveBeenCalledTwice();
+				}.bind(this))
+				.fin(done).end();
 		}
 
 	});
