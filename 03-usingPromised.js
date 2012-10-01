@@ -6,7 +6,11 @@ define(["./02-promiseAndCallback"], function(htmlLib){
 	return {
 		withPromise: function(callback)
 		{
-
+			htmlLib
+				.getHtml("en", "one")
+				.then(function(html) {
+					callback(html.replace("a", "b"));
+				}).end();
 		},
 
 		withCallback: function(callback)
