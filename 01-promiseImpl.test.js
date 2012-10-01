@@ -31,6 +31,7 @@ define("01-promiseImpl.test", ["buster", "fs", "./01-promiseImpl"], function(bus
 			html.getHtml("de", "two")
 				.then(function(contents){
 					expect(contents).toEqual("two english");
+					expect(this.fsStub).toHaveBeenCalledTwice();
 				}.bind(this))
 				.fail(this.mock().never())
 				.fin(done).end();

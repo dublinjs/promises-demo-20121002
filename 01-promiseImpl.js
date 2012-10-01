@@ -11,7 +11,13 @@ define(["fs", "path", "q"], function(fs, path, Q){
 
 	var getHtml = function (lang, pageId)
 	{
-		return Q.ninvoke(fs, "readFile", getFn(lang, pageId), UTF);
+		var promise = Q.ninvoke(fs, "readFile", getFn(lang, pageId), UTF);
+
+		var onError = (lang == defaultLang
+			? Q.reject
+			: function() { return getHtml(defaultLang, pageId); });
+
+		return promise.then(Q.resolve, onError);
 	};
 
 	return {
