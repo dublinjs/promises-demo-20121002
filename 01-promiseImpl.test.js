@@ -24,11 +24,16 @@ define("01-promiseImpl.test", ["buster", "fs", "./01-promiseImpl"], function(bus
 				}.bind(this))
 				.fail(this.mock().never())
 				.fin(done).end();
-//		},
-//
-//		"should read file (de, fallback)": function(done)
-//		{
-//			throw new Error("Not implemented");
+		},
+
+		"should read file (de, fallback)": function(done)
+		{
+			html.getHtml("de", "two")
+				.then(function(contents){
+					expect(contents).toEqual("two english");
+				}.bind(this))
+				.fail(this.mock().never())
+				.fin(done).end();
 		},
 
 		"should return error (en, na)": function(done)
