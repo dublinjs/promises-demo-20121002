@@ -1,6 +1,6 @@
 if (typeof define !== 'function') { var define = require('amdefine')(module); }
 
-define(["fs", "path"], function(fs, path){
+define(["fs", "path", "q"], function(fs, path, Q){
 
 	var defaultLang = "en", UTF = 'utf-8';
 
@@ -11,7 +11,7 @@ define(["fs", "path"], function(fs, path){
 
 	var getHtml = function (lang, pageId)
 	{
-		throw new Error("Not implemented");
+		return Q.ninvoke(fs, "readFile", getFn(lang, pageId), UTF);
 	};
 
 	return {

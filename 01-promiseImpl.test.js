@@ -18,7 +18,12 @@ define("01-promiseImpl.test", ["buster", "fs", "./01-promiseImpl"], function(bus
 
 		"should read file (de, exists)": function(done)
 		{
-			throw new Error("Not implemented");
+			html.getHtml("de", "one")
+				.then(function(contents){
+					expect(contents).toEqual("one german");
+				}.bind(this))
+				.fail(this.mock().never())
+				.fin(done).end();
 //		},
 //
 //		"should read file (de, fallback)": function(done)
